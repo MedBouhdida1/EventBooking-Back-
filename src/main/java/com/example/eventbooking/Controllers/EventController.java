@@ -3,6 +3,7 @@ package com.example.eventbooking.Controllers;
 
 import com.example.eventbooking.Models.Event;
 import com.example.eventbooking.Models.Organizer;
+import com.example.eventbooking.Models.Venue;
 import com.example.eventbooking.Repositories.EventRepository;
 import com.example.eventbooking.Repositories.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/event")
@@ -19,6 +22,8 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
+
+
     @Autowired
     private OrganizerRepository organizerRepository;
 
@@ -57,5 +62,9 @@ public class EventController {
         event.setId(id);
         eventRepository.save(event);
         return ResponseEntity.status(HttpStatus.OK).body(event);
+    }
+    @GetMapping("/last")
+    private Event getLastEvent() {
+        return eventRepository.findTopByOrderByIdDesc();
     }
 }

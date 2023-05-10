@@ -30,6 +30,8 @@ public class Event {
 
     private String time;
 
+    private String duration;
+
     private String description;
 
     private int price;
@@ -42,7 +44,6 @@ public class Event {
 
 
     @OneToOne(mappedBy = "event")
-    @JoinColumn(name = "venue_id")
     @JsonIgnoreProperties("event")
     private Venue venue;
 
@@ -53,8 +54,9 @@ public class Event {
 //    @JsonIgnoreProperties("events")
 //    private List<User> users ;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     private List<EventUser> eventUsers;
+
 
 
 }

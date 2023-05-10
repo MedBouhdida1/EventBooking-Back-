@@ -25,8 +25,7 @@ public class EventUser {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("eventUsers")
-
     private User user;
 
-    private String role;
+    private String date;
 }

@@ -34,7 +34,7 @@ public class User {
 //    @ManyToMany(mappedBy = "users")
 //    List<Event>events;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     private List<EventUser> eventUsers;
 
 

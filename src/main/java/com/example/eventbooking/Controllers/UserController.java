@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -60,6 +60,7 @@ public class UserController {
             else {
                 String token = Jwts.builder()
                         .claim("data", userFromDB)
+                        .claim("role","user")
                         .signWith(SignatureAlgorithm.HS256, "SECRET")
                         .compact();
                 response.put("token", token);

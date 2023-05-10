@@ -27,6 +27,7 @@ public class Organizer  {
     private String password;
 
     private String email;
+
     @Lob
     private String photo;
 
