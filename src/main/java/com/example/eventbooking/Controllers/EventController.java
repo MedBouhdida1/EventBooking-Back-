@@ -2,15 +2,18 @@ package com.example.eventbooking.Controllers;
 
 
 import com.example.eventbooking.Models.Event;
+import com.example.eventbooking.Models.EventUser;
 import com.example.eventbooking.Models.Organizer;
 import com.example.eventbooking.Models.Venue;
 import com.example.eventbooking.Repositories.EventRepository;
+import com.example.eventbooking.Repositories.EventUserRepository;
 import com.example.eventbooking.Repositories.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +24,14 @@ import java.util.Optional;
 public class EventController {
 
     @Autowired
+
     private EventRepository eventRepository;
 
 
     @Autowired
     private OrganizerRepository organizerRepository;
-
+    @Autowired
+    private EventUserRepository eventUserRepository;
 
     @GetMapping
     private List<Event>listEvents(){
@@ -48,9 +53,8 @@ public class EventController {
     }
 
     @DeleteMapping(value = "{id}")
-    private String deleteEvent(@PathVariable Long id){
+    private void deleteEvent(@PathVariable Long id){
         eventRepository.deleteById(id);
-        return "deletion success";
     }
 
 
@@ -67,4 +71,21 @@ public class EventController {
     private Event getLastEvent() {
         return eventRepository.findTopByOrderByIdDesc();
     }
+
+
+    @GetMapping(value = "getbyorganizer/{id}")
+    private List<Event> getEventsByOrganizerId(@PathVariable Long id){
+        return eventRepository.findEventByOrganizerId(id);
+    }
+
+    @GetMapping("/bookedEvent/{id}")
+    private List<Event>BookedEventsByUserId(@PathVariable Long id){
+        List<EventUser>EventUsers=eventUserRepository.findEventUserByUserId(id);
+        List<Event>Events=new ArrayList<>();
+        for(EventUser eventuser : EventUsers){
+            Events.add(eventRepository.findById(eventuser.getEvent().getId()).orElse(null));
+        }
+        return Events;
+    }
+
 }

@@ -42,9 +42,7 @@ public class UserController {
     public ResponseEntity<Map<String, Object>> loginUser(@RequestBody User user) {
 
         HashMap<String, Object> response = new HashMap<>();
-
         User userFromDB = userRepository.findByEmail(user.getEmail());
-
         if (userFromDB == null) {
             response.put("message", "user not found !");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -60,15 +58,16 @@ public class UserController {
             else {
                 String token = Jwts.builder()
                         .claim("data", userFromDB)
-                        .claim("role","user")
+//                        .claim("role","user")
                         .signWith(SignatureAlgorithm.HS256, "SECRET")
                         .compact();
                 response.put("token", token);
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             }
         }
-
     }
+
+
     @GetMapping(value = "{id}")
     private Optional<User> getUserById(@PathVariable Long id){
         return userRepository.findById(id);

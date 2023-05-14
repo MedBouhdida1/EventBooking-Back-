@@ -34,6 +34,9 @@ public class Event {
 
     private String description;
 
+    @Lob
+    private String banner;
+
     private int price;
 
 
@@ -43,7 +46,7 @@ public class Event {
     private Organizer organizer;
 
 
-    @OneToOne(mappedBy = "event")
+    @OneToOne(mappedBy = "event",cascade = CascadeType.ALL)
     @JsonIgnoreProperties("event")
     private Venue venue;
 
