@@ -35,10 +35,10 @@ public class VenueController {
         return venueRepository.findById(id);
     }
 
-    @PostMapping(value = "{id}")
-    private Venue addVenue(@RequestBody Venue venue,@PathVariable Long id){
-        Event event=eventRepository.findById(id).orElse(null);
-        venue.setEvent(event);
+    @PostMapping
+    private Venue addVenue(@RequestBody Venue venue){
+//        Event event=eventRepository.findById(id).orElse(null);
+//        venue.setEvent(event);
         venueRepository.save(venue);
         return venue;
     }
@@ -54,7 +54,7 @@ public class VenueController {
         if(!venueRepository.existsById(id)){
             return new ResponseEntity<Void>(HttpStatus.FOUND);
         }
-        venue.setId(id);
+//        venue.setId(id);
         venueRepository.save(venue);
         return ResponseEntity.status(HttpStatus.OK).body(venue);
     }

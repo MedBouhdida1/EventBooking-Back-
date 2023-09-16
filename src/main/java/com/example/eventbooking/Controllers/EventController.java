@@ -42,7 +42,7 @@ public class EventController {
     @PostMapping(value = "{id}")
     private Event addEvent(@RequestBody Event event,@PathVariable Long id){
         Organizer organizer=organizerRepository.findById(id).orElse(null);
-        event.setOrganizer(organizer);
+//        event.setOrganizer(organizer);
         eventRepository.save(event);
         return event;
     }
@@ -67,24 +67,25 @@ public class EventController {
         eventRepository.save(event);
         return ResponseEntity.status(HttpStatus.OK).body(event);
     }
+
     @GetMapping("/last")
     private Event getLastEvent() {
         return eventRepository.findTopByOrderByIdDesc();
     }
 
 
-    @GetMapping(value = "getbyorganizer/{id}")
-    private List<Event> getEventsByOrganizerId(@PathVariable Long id){
-        return eventRepository.findEventByOrganizerId(id);
-    }
+//    @GetMapping(value = "getbyorganizer/{id}")
+//    private List<Event> getEventsByOrganizerId(@PathVariable Long id){
+//        return eventRepository.findEventByOrganizerId(id);
+//    }
 
     @GetMapping("/bookedEvent/{id}")
     private List<Event>BookedEventsByUserId(@PathVariable Long id){
-        List<EventUser>EventUsers=eventUserRepository.findEventUserByUserId(id);
+//        List<EventUser>EventUsers=eventUserRepository.findEventUserByUserId(id);
         List<Event>Events=new ArrayList<>();
-        for(EventUser eventuser : EventUsers){
-            Events.add(eventRepository.findById(eventuser.getEvent().getId()).orElse(null));
-        }
+//        for(EventUser eventuser : EventUsers){
+//            Events.add(eventRepository.findById(eventuser.getEvent().getId()).orElse(null));
+//        }
         return Events;
     }
 

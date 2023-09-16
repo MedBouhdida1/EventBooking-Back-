@@ -58,7 +58,7 @@ public class UserController {
             else {
                 String token = Jwts.builder()
                         .claim("data", userFromDB)
-//                        .claim("role","user")
+                        .claim("role","user")
                         .signWith(SignatureAlgorithm.HS256, "SECRET")
                         .compact();
                 response.put("token", token);
