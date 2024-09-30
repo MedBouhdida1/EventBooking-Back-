@@ -1,9 +1,9 @@
 package com.example.eventbooking.Repositories;
 
 import com.example.eventbooking.Models.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends MongoRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 
     boolean existsByEmail(String email);

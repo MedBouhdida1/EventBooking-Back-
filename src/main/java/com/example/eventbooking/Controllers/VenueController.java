@@ -35,10 +35,10 @@ public class VenueController {
         return venueRepository.findById(id);
     }
 
-    @PostMapping
-    private Venue addVenue(@RequestBody Venue venue){
-//        Event event=eventRepository.findById(id).orElse(null);
-//        venue.setEvent(event);
+    @PostMapping(value = "{eventId}")
+    private Venue addVenue(@RequestBody Venue venue,@PathVariable Long eventId){
+        Event event=eventRepository.findById(eventId).orElse(null);
+        venue.setEvent(event);
         venueRepository.save(venue);
         return venue;
     }

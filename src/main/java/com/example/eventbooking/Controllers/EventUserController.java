@@ -31,8 +31,8 @@ public class EventUserController {
     }
 
 
-//    @GetMapping("/{eventId}/{userId}")
-//    private EventUser findEventByUserAndEventId(@PathVariable Long eventId,@PathVariable Long userId){
-//        return eventUserRepository.findEventUserByEventIdAndUserId(eventId,userId);
-//    }
+    @GetMapping("/{eventId}/{userId}")
+    private EventUser findEventByUserAndEventId(@PathVariable Long eventId,@PathVariable Long userId){
+        return eventUserRepository.findEventUserByEventIdAndUserId(eventId,userId);
+    }
 }
